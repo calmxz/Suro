@@ -6,11 +6,14 @@ Research for issue 6. All pages were read on 2026-11-26 unless a row says otherw
 
 You can host all of Suro for $0, but no single free plan covers every need well.
 
-- The hardest need is a long AI response. Most serverless free plans stop a response after 60 seconds to 5 minutes.
-- Three free options state limits that allow a stream of several minutes: Cloudflare Workers, Render, and Railway.
-- Google Cloud Run also allows up to 60 minutes, but it needs a billing account.
+- The hardest need is a long AI response. The documented stream limits on free plans fall into four groups:
+  - No limit or 15 minutes and more: Cloudflare Workers, Railway (15 min), Render (100 min), and Google Cloud Run (60 min).
+  - Up to 5 minutes: Vercel Hobby functions.
+  - Up to 150 seconds: Supabase Edge Functions.
+  - 100 seconds or less: Koyeb (100 s) and Netlify Functions (60 s).
+- Google Cloud Run needs a billing account with a card.
 - The second hardest need is a material of several megabytes. Vercel and Netlify functions cap the request body near 4.5 MB.
-- Python narrows the field. Netlify has no Python runtime. Cloudflare runs Python through Pyodide, and the Free plan has a 10 ms CPU limit per request.
+- Python reduces the options. Netlify has no Python runtime. Cloudflare runs Python through Pyodide, and the Free plan has a 10 ms CPU limit per request.
 - Database, file storage, and sign-in have generous free plans at Supabase, Neon, Cloudflare, Firebase, and Clerk.
 
 ## How to read this file
@@ -18,7 +21,9 @@ You can host all of Suro for $0, but no single free plan covers every need well.
 - "Stream" means a server-sent events or chunked HTTP response that stays open while the AI model writes.
 - Streaming support comes from each provider's documented limits. Nothing was deployed or tested, because the research rules do not allow a sign-up.
 - "Not verified" means the pages read do not state the fact. It is not a finding that the limit is absent.
-- "Philippines" means whether a learner or the owner in the Philippines can use the service. No page read names the Philippines as excluded. Each row still says "Not verified" unless a page states the rule.
+- "Not checked" means no page that could state the fact was read.
+- Terms of service were read only for Vercel. For every other provider, commercial-use rules and country rules are not checked.
+- "Philippines" means whether a learner or the owner in the Philippines can use the service. No page read names the Philippines as excluded.
 
 ## Backend comparison
 
@@ -28,7 +33,7 @@ This table compares the three limits that decide most choices for Suro.
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Vercel Hobby functions | Yes | 300 s | 4.5 MB (20 MiB in beta) | Yes | Yes | Not verified | Feature stops for 30 days | Not verified |
 | Netlify Free functions | Yes | 60 s | 6 MB, about 4.5 MB for binary | No | Yes | Not verified | All projects pause | Not verified |
-| Cloudflare Workers Free | Yes | No wall-clock limit while the client stays connected | 100 MB | Yes, through Pyodide | Yes | Snapshot at deploy to cut cold start | Error 1027 until midnight UTC | Not verified |
+| Cloudflare Workers Free | Yes | No wall-clock limit while the client stays connected | 100 MB | Yes, through Pyodide | Yes | Python Workers load a memory snapshot made at deploy | Error 1027 until midnight UTC | Not verified |
 | Render Free web service | Yes | 100 min | Not verified | Yes | Yes | Sleeps after 15 min idle; wakes in about 1 min | Free services suspend | No |
 | Railway Free | Yes | 15 min if data keeps flowing | No size cap stated; upload must finish in 5 min | Yes | Yes | Sleeps after 5 to 10 min with no outbound traffic | Services stop | No |
 | Koyeb free Instance | Yes, inside a paid-account sign-up | 100 s | Not verified | Yes | Yes | Scales to zero after 1 hour idle | Bills on Starter | Yes, with a $29 hold |
@@ -90,7 +95,7 @@ The frontend is a static React build, so every option below can serve it.
 - Waiting on an AI model "does not count towards active CPU time" ([function limits](https://vercel.com/docs/functions/limitations)).
 - Python: FastAPI runs as an ASGI `app`. Python 3.12, 3.13, and 3.14 are available ([Python runtime](https://vercel.com/docs/functions/runtimes/python)).
 - Python streaming: "Vercel Functions support streaming responses when using the Python runtime" ([Python runtime](https://vercel.com/docs/functions/runtimes/python)).
-- Default region is `iad1` (United States), which you can change ([function limits](https://vercel.com/docs/functions/limitations)). An Asian region on Hobby: Not verified.
+- Default region is `iad1` (United States), which you can change ([function limits](https://vercel.com/docs/functions/limitations)). Asian regions include `sin1` and `hkg1` ([Vercel regions](https://vercel.com/docs/regions)). Whether Hobby can select them: Not verified.
 - Cold start on Hobby: Not verified. The Pro plan lists "Cold start prevention" as a Pro feature ([Vercel pricing](https://vercel.com/pricing)).
 
 ### Netlify Functions (TypeScript only)
@@ -99,7 +104,7 @@ The frontend is a static React build, so every option below can serve it.
 - Streaming: "Streaming functions have a 60-second execution limit and a 20 MB response size limit" ([functions API](https://docs.netlify.com/build/functions/api.md)).
 - Result: a stream of one minute or more does not fit.
 - Request body: 6 MB buffered. Binary uploads are Base64-encoded, "effectively reducing the binary request payload size limit to 4.5 MB" ([function configuration](https://docs.netlify.com/build/functions/configuration.md)).
-- Background functions run up to 15 minutes, but their payload limit is 256 KB and they do not stream ([function configuration](https://docs.netlify.com/build/functions/configuration.md)).
+- Background functions run up to 15 minutes, but their payload limit is 256 KB ([function configuration](https://docs.netlify.com/build/functions/configuration.md)).
 - Languages: the docs show TypeScript, JavaScript, and Go. No Python runtime appears ([get started](https://docs.netlify.com/build/functions/get-started.md), [function configuration](https://docs.netlify.com/build/functions/configuration.md)).
 - Region `sin` (Singapore) is selectable ([function configuration](https://docs.netlify.com/build/functions/configuration.md)).
 - Edge Functions: 50 ms CPU per request and a 40 s "Response header timeout" ([Edge Functions limits](https://docs.netlify.com/build/edge-functions/limits.md)). A total stream duration for Edge Functions: Not verified.
@@ -226,7 +231,7 @@ A tutoring session uploads a material of several megabytes. Each row gives the p
 
 | Option | Free storage | Per-file or body cap | Egress | Card | Source |
 | --- | --- | --- | --- | --- | --- |
-| Cloudflare R2 | 10 GB-month | Not verified | Free | Community reports say yes; official page not found | [R2 pricing](https://developers.cloudflare.com/r2/pricing/) |
+| Cloudflare R2 | 10 GB-month | Not verified | Free | Not verified (see the notes) | [R2 pricing](https://developers.cloudflare.com/r2/pricing/) |
 | Supabase Storage | 1 GB | 50 MB per file on Free | 5 GB shared | Not verified | [Supabase pricing](https://supabase.com/pricing), [upload limits](https://supabase.com/docs/guides/storage/uploads/file-limits) |
 | Vercel Blob | 1 GB | Not verified | 10 GB | Not verified | [Blob pricing](https://vercel.com/docs/vercel-blob/usage-and-pricing) |
 | Railway bucket | 10 GB | Not verified | Billed from the $1 | No | [Railway free plan](https://docs.railway.com/pricing/free-plan) |
@@ -236,7 +241,8 @@ A tutoring session uploads a material of several megabytes. Each row gives the p
 Notes:
 
 - R2 free operations: 1 million Class A and 10 million Class B requests per month ([R2 pricing](https://developers.cloudflare.com/r2/pricing/)).
-- R2 card: forum posts say the R2 checkout asks for a card ([community thread](https://community.cloudflare.com/t/why-using-r2-free-tier-involves-giving-card-info/945179)). The official docs say only that you need "an R2 subscription" ([R2 get started](https://developers.cloudflare.com/r2/get-started/)).
+- R2 sign-up: you "Complete the checkout flow to add an R2 subscription." The docs say "R2 is free to get started" ([R2 get started](https://developers.cloudflare.com/r2/get-started/)).
+- R2 card: the official page does not say whether checkout needs a card. A web search returned forum threads that report a card prompt ([community thread](https://community.cloudflare.com/t/why-using-r2-free-tier-involves-giving-card-info/945179)). That thread was not opened, so this is Not verified.
 - Vercel Blob on Hobby includes 10,000 simple and 2,000 advanced operations. Uploads count as advanced operations ([Blob pricing](https://vercel.com/docs/vercel-blob/usage-and-pricing)).
 - Past the Blob limits, "you will not be able to access Vercel Blob" for 30 days ([Blob pricing](https://vercel.com/docs/vercel-blob/usage-and-pricing)).
 - Firebase: "To use Cloud Storage for Firebase ... you must upgrade to the pay-as-you-go Blaze pricing plan." This took effect on February 3, 2026 ([Storage FAQ](https://firebase.google.com/docs/storage/faqs-storage-changes-announced-sept-2024)).
@@ -265,13 +271,13 @@ Notes:
 
 ## Other server-side limits worth knowing
 
-- Supabase Edge Functions on Free: 150 s wall clock, 2 s CPU, 256 MB memory, and a 150 s request idle timeout ([Supabase function limits](https://supabase.com/docs/guides/functions/limits)).
+- Supabase Edge Functions on Free: 150 s wall clock, 2 s CPU, 256 MB memory, and 150 s idle timeout ([Supabase function limits](https://supabase.com/docs/guides/functions/limits)).
 - Supabase Free includes 500,000 Edge Function invocations ([Supabase pricing](https://supabase.com/pricing)).
 - Firebase Cloud Functions show "Not applicable" on Spark, so they need Blaze ([Firebase pricing](https://firebase.google.com/pricing)).
 
 ## Philippines and region notes
 
-- No page read names the Philippines as excluded. For every provider, availability from the Philippines is Not verified.
+- No page read names the Philippines as excluded. Country rules in the terms are not checked, except for Vercel.
 - Vercel's terms bar persons who are targets of sanctions ([Vercel terms](https://vercel.com/legal/terms)).
 - Google Cloud says "Depending on your country, you might also need to verify your bank account" ([Google Cloud free features](https://docs.cloud.google.com/free/docs/free-cloud-features)).
 - Nearest documented compute regions:
@@ -279,13 +285,17 @@ Notes:
   - Cloud Run: `asia-southeast1` (Singapore) ([Cloud Run pricing](https://cloud.google.com/run/pricing)).
   - Koyeb free Instance: Frankfurt or Washington, D.C. only ([Koyeb instances](https://www.koyeb.com/docs/reference/instances)).
   - Railway Free: Railway picks the region ([Railway free plan](https://docs.railway.com/pricing/free-plan)).
-  - Vercel, Render, Supabase, and Neon regions in Asia on the free plan: Not verified.
+  - Vercel: `sin1` (Singapore) and `hkg1` (Hong Kong). Functions default to `iad1` ([Vercel regions](https://vercel.com/docs/regions)).
+  - Render: Singapore is one of five regions ([Render regions](https://render.com/docs/regions)).
+  - Supabase: Southeast Asia (Singapore), `ap-southeast-1` ([Supabase regions](https://supabase.com/docs/guides/platform/regions)).
+  - Neon: AWS Asia Pacific (Singapore), `aws-ap-southeast-1`. It also hosts Managed Better Auth and Object Storage ([Neon regions](https://neon.com/docs/introduction/regions)).
+  - Whether each free plan can pick these Asian regions: Not verified.
 
 ## Commercial-use summary
 
 - Vercel Hobby: personal or non-commercial use only ([Vercel terms](https://vercel.com/legal/terms)).
 - Render Free and Koyeb free Instance: not for production use ([Render free plan](https://render.com/docs/free), [Koyeb instances](https://www.koyeb.com/docs/reference/instances)). Neither page bans commercial use.
-- All other providers: a commercial-use rule on the free plan is Not verified.
+- All other providers: the terms of service are not checked, so a commercial-use rule on the free plan is unknown.
 
 ## What this means for Suro
 
@@ -330,7 +340,8 @@ Vercel Python fits only if every response ends within 5 minutes and the project 
 - Cold start or wake time for Vercel Hobby, Cloud Run, and Neon.
 - Credit card rules for Vercel Hobby, Netlify Free, Cloudflare Workers Free, and Supabase Free.
 - Official confirmation that R2 needs a card.
-- Commercial-use rules for every provider except Vercel.
-- Availability from the Philippines for every provider.
+- Commercial-use rules for every provider except Vercel. Their terms of service are not checked.
+- Availability from the Philippines for every provider. Country rules in the terms are not checked, except for Vercel.
+- Whether each free plan can pick an Asian region.
 - What Supabase Free does when a project passes its limits.
 - Render's 100-minute limit on a limits reference page. The figure comes from a Render comparison page.
