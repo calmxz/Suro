@@ -91,7 +91,7 @@ This file calls the people in studies "tutees" or "participants." The word "lear
 - [Person, Graesser, Magliano, and Kreuz (1994)](https://doi.org/10.1016/1041-6080(94)90010-8) analyze 44 tutoring sessions with undergraduates in research methods.
 - They find that the quality of tutee answers is the most reliable signal of understanding.
 - They find that answers to "Do you understand?" are "very misleading."
-- Higher achievers said "No, I do not understand" more often. "Yes" answers were most common among average achievers, at 0.62 and 0.61, and lower among top achievers, at 0.46.
+- Higher achievers said "No, I do not understand" more often. "Yes" answers were most common among average achievers, at 0.62 and 0.61, and lower among top achievers, at 0.46. This pattern was only marginally significant (p < .10).
 - The authors advise tutors to be suspicious of tutees who rarely say they do not understand.
 
 ### 2.2 People misjudge their own learning, and the error costs them
@@ -136,12 +136,12 @@ This file calls the people in studies "tutees" or "participants." The word "lear
 - It finds g = 0.55 (95% CI 0.45 to 0.65) for self-explanation prompts.
 - [Dunlosky and others (2013)](https://doi.org/10.1177/1529100612453266) rate self-explanation "moderate utility." Their reason is limited evidence in real educational settings.
 
-### 3.2 Recall questions teach more than recognition questions
+### 3.2 Cued recall questions teach more than recognition questions
 
 **Label: strong evidence.**
 
 - A meta-analysis of testing versus restudy finds g = 0.50 (95% CI 0.42 to 0.58) in favor of testing ([Rowland, 2014](https://doi.org/10.1037/a0037559)).
-- In that meta-analysis, cued recall practice tests give g = 0.61, and recognition tests give g = 0.29.
+- In that meta-analysis, cued recall practice tests give g = 0.61. Free recall and recognition tests both give g = 0.29.
 - A second meta-analysis finds that practice tests beat restudy and every other comparison condition ([Adesope, Trevisan, and Sundararajan, 2017](https://doi.org/10.3102/0034654316689306)).
 - Dunlosky and others (2013) rate practice testing "high utility."
 - This evidence is about retention. It does not show which question type best reveals a gap.
@@ -214,7 +214,7 @@ This file calls the people in studies "tutees" or "participants." The word "lear
 **Label: mixed evidence.**
 
 - Deep knowledge tracing uses recurrent neural networks. Its authors report substantial gains in prediction ([Piech and others, 2015](https://arxiv.org/abs/1506.05908)).
-- [Khajah, Lindsey, and Mozer (2016)](https://arxiv.org/abs/1604.02416) extend BKT with four kinds of structure, including forgetting and individual ability.
+- [Khajah, Lindsey, and Mozer (2016)](https://arxiv.org/abs/1604.02416) extend BKT to capture four regularities, including recency effects and individual variation in ability.
 - With those extensions, BKT performs indistinguishably from deep knowledge tracing.
 - Pelanek (2017) states that, for decisions on when a concept is learned, the input data matter more than the model details.
 - He adds that slightly different models with the same input data lead to very similar decisions of that kind.
@@ -294,12 +294,11 @@ This file calls the people in studies "tutees" or "participants." The word "lear
 
 ### 7.3 Whether scheduling matters for a v1
 
-**Label: mixed evidence.** This section states trade-offs, not a decision.
+**Label: mixed evidence.** This section states trade-offs, not a decision. Except for the Kestin point, these bullets are reasoning from sections 7.1 and 7.2, not findings.
 
 - Spacing helps only when a learner comes back on a later day. The v1 testers are the owner and volunteers, and no source here predicts their return rate.
 - Kestin and others (2025) list spacing as future work. Their trial measured learning on one day only.
 - A simple option is a fixed interval that grows after each successful review. The sources here do not compare it with a trained scheduler.
-- A trained scheduler, such as FSRS or half-life regression, needs many reviews to fit. A small v1 with few testers may not have that data.
 - The need to bring a learner back can mean reminders, such as email. That has its own cost and privacy questions.
 
 ## 8. Limits of this evidence
@@ -331,6 +330,7 @@ These points connect the findings to Suro. They do not make the v1 decision.
 - The original 0.4 to 0.7 claim in Black and Wiliam (1998). I cite it only through Kingston and Nash (2011).
 - The Cohen, Kulik, and Kulik (1982) 0.33 figure and the 2020 working-paper 0.37 figure. Both come from von Hippel (2024).
 - Whether the LLM tutors in Kestin and others (2025) and Bastani and others (2025) keep a per-concept model of the tutee across sessions. I did not find this in the parts I read.
+- How much review data a trained scheduler, such as FSRS, needs before it fits well.
 - Any study of how accurately an LLM grades an adult's free-text explanation of a concept from a material.
 
 ## References
