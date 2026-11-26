@@ -13,20 +13,23 @@ Each table row and each claim links to the page that owns it.
 
 - Direct model input is the most capable way to read a material.
   Claude, Gemini, and OpenAI each read a text PDF and a scanned PDF as text plus page images.
-- Gemini is the cheapest direct option.
-  It is also the only one of the three with a documented API free plan.
+- Gemini and Claude publish per-page token counts, and OpenAI does not.
+  Of the two, Gemini Flash-Lite is the cheapest.
+- Gemini is the only one of the three with a documented API free plan.
   The free plan lets Google use the content to improve its products, and human reviewers can read it.
 - Only Gemini 4 reads a PPTX file as slide images.
+  Gemini 3 and 2.5 read the text and embedded images.
   OpenAI reads only the text of a PPTX file.
-  Claude does not accept PPTX, so you must convert it to PDF first.
-- Only Gemini accepts HEIC, the default photo format on iPhones.
+  The Claude PDF guide does not list PPTX, and it says to convert binary formats first.
+- Only Gemini accepts HEIC and HEIF images.
   Claude and OpenAI accept JPEG, PNG, GIF, and WebP.
 - Cloud OCR costs about $1.50 for each 1,000 pages after a small free allowance.
   Mistral OCR 3 costs $2.00.
 - Handwriting is the weakest case for every option.
-  No vendor publishes accuracy figures for handwriting, and no vendor lists Filipino handwriting support.
+  None of the pages read gives accuracy figures for handwriting or lists Filipino handwriting support.
 - Text-layer parsing libraries are free and exact on text PDFs.
-  They return nothing useful on a scanned PDF, because they do not run OCR.
+  On a scanned PDF, they read only a text layer that the scanner added, with its OCR errors.
+  Some libraries, such as Docling and PyMuPDF, can call an OCR engine.
 - The license that matters most is AGPL-3.0, on PyMuPDF and `mupdf`.
   Most other libraries use MIT, BSD, or Apache-2.0.
 
@@ -185,6 +188,9 @@ Output tokens and your prompt are extra.
 | Claude Sonnet 5.5 | about 3,000 to 4,600 | about $6.00 to $9.20 |
 | OpenAI | Not published | Not verified |
 
+The Gemini estimate assumes default processing, where embedded PDF text costs nothing extra.
+If you set `processing` options, the media resolution table lists "560 + Native Text" per page ([Media resolution](https://ai.google.dev/gemini-api/docs/media-resolution)).
+Then the text tokens add to the cost.
 The Claude estimate uses 1,500 to 3,000 text tokens plus up to 1,568 image tokens per page.
 At that rate, one request passes 100,000 tokens at about 21 to 33 pages.
 Above that point, Haiku 5.5 costs five times more per token.
@@ -236,8 +242,7 @@ The Mistral price comes from the OCR 3 announcement.
 The Mistral pricing page did not show an OCR price in a form that this research could read.
 The Mistral free mode does not include API access ([tiers](https://docs.mistral.ai/deployment/laplateforme/tier/)).
 With LlamaParse, 10,000 credits cover 10,000 pages at the Fast tier, or 1,000 pages at the Agentic tier ([pricing](https://www.llamaindex.ai/pricing)).
-Google Cloud, Azure, and AWS each need a billing account to start.
-The exact sign-up rules for each were Not verified.
+Whether Google Cloud, Azure, and AWS each need a billing account for the free allowance was Not verified.
 
 ### Handwriting and Filipino support
 
@@ -266,7 +271,7 @@ Handwriting results for Suro can only come from tests on real materials.
 | PyMuPDF | AGPL-3.0, or a commercial license | PDF, XPS, EPUB, images. OCR through RapidOCR or Tesseract. | PPTX needs `pymupdf-office`, which is commercial. Without a key it reads only the first 3 pages. | [README](https://github.com/pymupdf/PyMuPDF), [pymupdf-office on PyPI](https://pypi.org/project/pymupdf-office/) |
 | Docling | MIT | PDF, DOCX, PPTX, XLSX, HTML, images. OCR for scanned PDFs and images. | Legacy DOC, XLS, and PPT need LibreOffice. | [README](https://github.com/docling-project/docling), [formats](https://docling-project.github.io/docling/usage/supported_formats/) |
 | Marker | Code Apache-2.0. Model weights modified OpenRAIL-M. | PDF to Markdown | Weights are free for research, personal use, and startups under $5M in funding or revenue. | [README](https://github.com/datalab-to/marker) |
-| MinerU | Apache-2.0 with extra terms | PDF parsing | An online service must say that it uses MinerU. A commercial license applies above 100 million monthly active accounts or $20M monthly revenue. | [LICENSE](https://github.com/opendatalab/MinerU/blob/master/LICENSE.md) |
+| MinerU | Apache-2.0 with extra terms | PDF parsing | An online service must say that it uses MinerU. A commercial license applies above 100 million "monthly active users (MAU)" or $20M monthly revenue. | [LICENSE](https://github.com/opendatalab/MinerU/blob/master/LICENSE.md) |
 | `python-pptx` | MIT | PPTX shapes that have a text frame | The documented text example reads only text frames, so text inside a picture is skipped. Last push 2024-08-07. | [quickstart](https://python-pptx.readthedocs.io/en/latest/user/quickstart.html), [repo](https://github.com/scanny/python-pptx) |
 | MarkItDown | MIT | PDF, PowerPoint, Word, Excel, images | Image captioning uses web-hosted services. The `markitdown-ocr` plugin uses an LLM for OCR. | [README](https://github.com/microsoft/markitdown) |
 | `unstructured` | Apache-2.0 | Not verified | Not verified | [PyPI](https://pypi.org/project/unstructured/) |
@@ -309,8 +314,8 @@ This research does not give legal advice.
 | Material | Works reliably | Where it fails |
 | --- | --- | --- |
 | Text PDF | Any parsing library reads the text layer exactly. All three model APIs read it directly. | The `pypdf` docs say that PDFs have no semantic layer, so tables and captions have no clear extraction rule ([pypdf](https://pypdf.readthedocs.io/en/stable/user/extract-text.html)). Encrypted PDFs fail on Claude. |
-| Scanned PDF | Direct model input, or cloud OCR | Parsing libraries return little or no text. Tesseract fails on skew, low DPI, and noise. |
-| Slides (PPTX) | Gemini 4 reads slide images directly. Docling and MarkItDown read PPTX text. | Claude does not accept PPTX. OpenAI reads text only. `python-pptx` skips text inside pictures. |
+| Scanned PDF | Direct model input, or cloud OCR | Text-layer libraries read only a scanner's OCR layer, with its errors ([pypdf](https://pypdf.readthedocs.io/en/stable/user/extract-text.html)). Tesseract fails on skew, low DPI, and noise. |
+| Slides (PPTX) | Gemini 4 reads slide images directly. Docling and MarkItDown read PPTX text. | The Claude PDF guide does not list PPTX. OpenAI reads text only. `python-pptx` skips text inside pictures. |
 | Phone photo | Gemini accepts HEIC. All three APIs read JPEG. | Claude and OpenAI reject HEIC. Rotated, small, or compressed text lowers accuracy on all three. |
 | Handwriting | Cloud Vision and Azure claim handwriting support. Mistral claims gains. | Tesseract is weak. Azure does not list Filipino handwriting. Textract reads only English handwriting. No accuracy figures exist. |
 
@@ -332,7 +337,9 @@ Do not compress too much, because heavy JPEG compression makes text hard to read
 This section lists trade-offs.
 A later ticket with the owner makes the decision.
 
-- **One API for all types.** Gemini 4 covers PDF, PPTX, and HEIC in one API at the lowest price.
+- **One API for all types.** Gemini 4 covers PDF, PPTX slide images, and HEIC in one API.
+  Gemini 4 Hydrogen costs about $0.84 per 1,000 pages, which is more than Gemini Flash-Lite.
+  The cheaper Gemini 3.x models read PPTX as text and embedded images.
   Claude needs a PPTX-to-PDF step and a HEIC-to-JPEG step.
 - **Free plan or privacy.** The Gemini free plan costs nothing.
   Its terms say not to send personal information, and learners' materials can contain it.
@@ -342,7 +349,8 @@ A later ticket with the owner makes the decision.
   You can then send only page images that need vision, such as charts or scans.
 - **Handwriting needs a test set.** No source gives accuracy numbers.
   A small test set of real Filipino and English materials would show which option works.
-- **License check.** Avoid AGPL libraries unless you plan to publish Suro's source.
+- **License check.** An AGPL library is a fit if you plan to publish Suro's source.
+  If you do not, the permissive libraries avoid the network clause.
 
 ## Not verified
 
