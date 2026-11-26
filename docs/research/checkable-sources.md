@@ -4,6 +4,8 @@ Research for issue #5. All pages were read on 2026-11-26. Prices are in USD and 
 
 In this file, "source" always means an outside reference that a learner can check. It never means the material.
 
+A failure case without a link is my own reasoning, not a documented fact.
+
 ## Short answer
 
 You can attach a checkable source in three ways:
@@ -12,7 +14,7 @@ You can attach a checkable source in three ways:
 2. Run your own search (a third-party search API or an open corpus such as Wikipedia). Then pass the results to the model as citable blocks.
 3. Pass passages, from the material or from a fixed corpus, to the model with citations turned on.
 
-No option proves that a source supports a claim. The APIs guarantee, at most, that a quoted span exists in the text they were given. Published studies find that 50% to 90% of LLM answers are not fully supported by their cited sources. So you need your own check after generation:
+No option proves that a source supports a claim. The APIs guarantee, at most, that a quoted span exists in the text they were given. In one study, only 51.5% of sentences from generative search engines were fully supported by their citations ([Liu et al. 2023](https://arxiv.org/abs/2304.09848)). So you need your own check after generation:
 
 1. Check that the link loads.
 2. Check that the quoted passage is on the page.
@@ -57,7 +59,7 @@ This mechanism serves both the material and outside sources.
 
 - Citations work on plain text, PDF, and custom content blocks. Plain text gives character indices. PDF gives page numbers. Custom content gives block indices. ([citations](https://platform.claude.com/docs/en/build-with-claude/citations))
 - Cost: "a slight increase in input tokens." The `cited_text` field "does not count toward output tokens." ([citations](https://platform.claude.com/docs/en/build-with-claude/citations))
-- Guarantee: citations "are guaranteed to contain valid pointers to the provided documents." This means the quoted span exists in the text you sent. It does not mean that the span supports the claim. ([citations](https://platform.claude.com/docs/en/build-with-claude/citations))
+- Guarantee: the docs say citations always hold valid pointers into the content you sent. This means the quoted span exists in the text you sent. It does not mean that the span supports the claim. ([citations](https://platform.claude.com/docs/en/build-with-claude/citations))
 - `search_result` blocks let you pass your own retrieved passages with a `source` URL and `title`. Claude then cites them as `search_result_location`. The `cited_text` is the full text of the cited blocks. ([search results](https://platform.claude.com/docs/en/build-with-claude/search-results))
 - You can return `search_result` blocks from your own tool. This is how you run your own search (option 2) and keep Claude's citation format. ([search results](https://platform.claude.com/docs/en/build-with-claude/search-results))
 
@@ -137,7 +139,7 @@ A fixed corpus is cheaper and narrower. It also gives stable pages that are easi
 - Price: free. Search uses `action=query&list=search`. ([API:Search](https://www.mediawiki.org/wiki/API:Search))
 - Rate limits are new in 2026 and "subject to experimentation and change." Requests with a compliant `User-Agent` get 200 requests per minute. Unidentified requests get 10 per minute. ([rate limits](https://www.mediawiki.org/wiki/Wikimedia_APIs/Rate_limits), read 2026-11-26)
 - Unauthenticated requests from a web browser also get 200 requests per minute. ([rate limits](https://www.mediawiki.org/wiki/Wikimedia_APIs/Rate_limits))
-- A `User-Agent` header is required. "Clients making requests without a User-Agent header may be blocked without notice." ([access policy](https://www.mediawiki.org/wiki/Wikimedia_APIs/Access_policy))
+- A `User-Agent` header is required. A client that sends no `User-Agent` header can be blocked without notice. ([access policy](https://www.mediawiki.org/wiki/Wikimedia_APIs/Access_policy))
 - License: most text is under CC BY-SA 4.0. ([Wikipedia:Copyrights](https://en.wikipedia.org/wiki/Wikipedia:Copyrights))
 - Each revision has a permanent `oldid` URL. You can cite the exact version that Suro read. ([example oldid link](https://www.mediawiki.org/w/index.php?title=Wikimedia_APIs/Rate_limits&oldid=8703424))
 
@@ -159,7 +161,7 @@ Failure cases:
 
 - The endpoints are undocumented, so they can change without notice.
 - There is no search endpoint. You must build your own index.
-- Coverage is limited to about 80 introductory college subjects.
+- Coverage is limited to the 84 live book entries, mostly introductory college and some school subjects (for example, Algebra 1).
 
 ### Crossref, for scholarly sources
 
@@ -215,7 +217,7 @@ Failure cases: the judge model can be wrong. Each check adds one model call of c
 ### Show the passage to the learner
 
 - Link with a text fragment: `https://example.com#:~:text=start,end`. Supporting browsers scroll to and highlight the passage. ([MDN text fragments](https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Fragment/Text_fragments))
-- Support: Chrome 80, Safari 16.1, and Firefox 131 and later, per MDN browser-compat-data 8.1.11 (read 2026-11-26).
+- Support: Chrome 80, Safari 16.1, and Firefox 131 and later. This comes from the `html.elements.a.text_fragments` entry in MDN browser-compat-data 8.1.11 ([data file](https://unpkg.com/@mdn/browser-compat-data/data.json), read 2026-11-26).
 - If the text does not match, the browser opens the top of the page. So the link still works. ([MDN text fragments](https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Fragment/Text_fragments))
 - Also show the quoted passage and the date Suro read it. The learner can then see what Suro relied on, even if the page changes later.
 
@@ -226,12 +228,12 @@ All of these studies test consumer products or models from 2023 to 2025. None te
 - Generative search engines: "a mere 51.5% of generated sentences are fully supported by citations and only 74.5% of citations support their associated sentence." ([Liu et al. 2023](https://arxiv.org/abs/2304.09848))
 - ALCE benchmark: "on the ELI5 dataset, even the best models lack complete citation support 50% of the time." ([Gao et al. 2023](https://arxiv.org/abs/2305.14627))
 - Fabricated references without search: "55% of the GPT-3.5 citations but just 18% of the GPT-4 citations are fabricated." ([Walters and Wilder 2023](https://www.nature.com/articles/s41598-023-41032-5))
-- Medical answers: "between 50% and 90% of LLM responses are not fully supported, and sometimes contradicted, by the sources they cite." ([Wu et al. 2025](https://www.nature.com/articles/s41467-025-58551-6))
+- Medical questions, seven models, several without web access: "between 50% and 90% of LLM responses are not fully supported, and sometimes contradicted, by the sources they cite." ([Wu et al. 2025](https://www.nature.com/articles/s41467-025-58551-6))
 - Same study: "Even for GPT-4o with Web Search, approximately 30% of individual statements are unsupported." ([Wu et al. 2025](https://www.nature.com/articles/s41467-025-58551-6))
 - AI search engines on news: they "provided incorrect answers to more than 60 percent of queries." Grok 3 had 154 citations to error pages in 200 prompts. ([Tow Center, March 2025](https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php))
 - EBU and BBC study, October 2025: "45% of all AI answers had at least one significant issue, and 31% of responses showed serious sourcing problems." This figure comes from NPR, a study participant. I could not open the EBU page (HTTP 403). ([NPR](https://www.npr.org/sections/npr-extra/2025/10/21/g-s1-94424/global-study-on-news-integrity-in-ai-assistants-shows-need-for-safeguards-and-improved-accuracy))
 
-The pattern across studies: search access cuts fabricated links, but it does not stop unsupported claims. A claim-support check is what catches the second problem.
+My inference from these studies: search access does not stop unsupported claims. It does not reliably stop broken or fabricated links either. Over half of Gemini and Grok 3 responses cited fabricated or broken URLs ([Tow Center](https://www.cjr.org/tow_center/we-compared-eight-ai-search-engines-theyre-all-bad-at-citing-news.php)). So you need both a link check and a claim-support check.
 
 ## Cost summary
 
