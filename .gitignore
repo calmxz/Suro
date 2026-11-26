@@ -1,2 +1,5 @@
 # Local session handoff, never committed
 HANDOFF.md
+
+# Local Claude Code settings and agent worktrees
+.claude/
