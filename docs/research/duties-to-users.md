@@ -13,13 +13,14 @@
 - The Philippine Data Privacy Act applies to you at any size. The exclusion for personal and household affairs does not cover a service for other people.
 - You must give a privacy notice, use a lawful basis, and keep data only as long as needed.
 - You must secure the data and honor requests for access, correction, and erasure.
-- You must report a qualifying breach to the National Privacy Commission (NPC) and to learners within 72 hours. Leaked login data is enough to qualify.
-- Registration with the NPC depends on size, with one exception. A system that does profiling must register "in all instances". Stored mastery may count as profiling.
+- You must report a qualifying breach to the National Privacy Commission (NPC) and to learners within 72 hours. Login data counts as data that can enable identity fraud, which is one of three conditions.
+- NPC registration has three triggers that do not depend on size. They are profiling, likely risk to rights, and processing that is "not occasional" in older rules. Whether Suro meets them is open.
 - If you do not register, an NPC circular requires a notarized sworn declaration instead.
-- No law I found prescribes how an adults-only gate must check age. The gate matters because US, UK, and AI-provider rules attach duties to services that children use.
-- A learner's material can be under copyright. Philippine fair use and private-study copying are narrow. A notice-and-removal process limits your exposure in the Philippines and the US.
-- Sending a material to an AI provider is a disclosure to a processor. The Anthropic API terms fit this: no training, deletion within 30 days, and a data processing addendum.
-- A Claude Max subscription falls under the consumer terms instead. Those terms forbid sharing the account and limit automated access.
+- No law I found prescribes how an adults-only gate must check age. An NPC advisory warns that self-declaration alone may be inadequate for high-risk processing.
+- The gate matters because Philippine, US, UK, and AI-provider rules attach extra duties to services that children are likely to use.
+- A learner's material can be under copyright. Philippine fair use and private-study copying are narrow. A notice-and-removal process reduces your exposure in the Philippines and the US.
+- Sending a material to an AI provider is a disclosure to a processor. The Anthropic API terms give no training, deletion within 30 days, and a data processing addendum. Whether that addendum meets every Philippine requirement is not verified.
+- A Claude Max subscription falls under the consumer terms instead. Those terms forbid sharing the account and limit automated access. I found no data processing addendum in them.
 
 ## 1. Philippines: the Data Privacy Act
 
@@ -45,7 +46,7 @@ If either counts as sensitive, these stricter rules apply:
 
 - Processing is prohibited unless an exception applies. The main exception is consent "specific to the purpose prior to the processing" ([RA 10173, Sec. 13(a)](https://privacy.gov.ph/data-privacy-act/)).
 - Sensitive information processed through a contract is treated as consent-based processing under Sec. 13(a) ([NPC Circular 2023-04, Sec. 19](https://privacy.gov.ph/wp-content/uploads/2023/11/NPC-Circular-No.-2023-04_Guidelines-on-Consent_07Nov2023.pdf)).
-- A breach of sensitive information triggers notification ([RA 10173, Sec. 20(f)](https://privacy.gov.ph/data-privacy-act/)).
+- A breach of sensitive information meets the first condition for mandatory notification ([RA 10173, Sec. 20(f)](https://privacy.gov.ph/data-privacy-act/)).
 - Penalties are higher, for example 3 to 6 years for unauthorized processing ([RA 10173, Sec. 25(b)](https://privacy.gov.ph/data-privacy-act/)).
 
 ### Lawful basis and consent
@@ -68,7 +69,7 @@ If you rely on consent, Circular 2023-04 sets these rules:
 
 ### Notice: what you must tell learners
 
-- A privacy notice is required for any processing, whatever the lawful basis ([Circular 2023-04, Sec. 3(D)(5)(a)](https://privacy.gov.ph/wp-content/uploads/2023/11/NPC-Circular-No.-2023-04_Guidelines-on-Consent_07Nov2023.pdf)).
+- You must give a privacy notice for any processing, whatever the lawful basis ([Circular 2023-04, Sec. 3(D)(5)(a)](https://privacy.gov.ph/wp-content/uploads/2023/11/NPC-Circular-No.-2023-04_Guidelines-on-Consent_07Nov2023.pdf)).
 - Before data enters your system, you must state these items ([RA 10173, Sec. 16(b)](https://privacy.gov.ph/data-privacy-act/)):
   - what data you collect,
   - the purposes,
@@ -118,9 +119,9 @@ A deletion in Suro does not delete copies that an AI provider still holds. See s
   - the data is sensitive or can enable identity fraud,
   - an unauthorized person may have acquired it, and
   - the acquisition is likely to cause a real risk of serious harm.
-- "Usernames, passwords and other login data" count as information that can enable identity fraud (Sec. 11(A)).
+- "Usernames, passwords and other login data" count as information that can enable identity fraud (Sec. 11(A)). This meets the first condition only. The other two must also hold.
 - You notify even if a processor, such as an AI provider or a host, had the breach (Sec. 15).
-- The NPC weighs whether a breach involves at least 100 individuals (Sec. 13(B)).
+- If you are unsure whether to notify, you must consider whether the breach involves at least 100 individuals (Sec. 13(B)).
 - Notify the NPC and affected learners within 72 hours of knowledge or reasonable belief ([IRR, Sec. 38(a)](https://privacy.gov.ph/implementing-rules-regulations-data-privacy-act-2012/); Circular 16-03 summary table).
 - Failure to notify is presumed if the NPC does not hear from you within five days (Sec. 20).
 - The full breach report is due within five days of discovery, unless the NPC acts on a request ([NPC Advisory 2026-02, Sec. 2(C)](https://privacy.gov.ph/wp-content/uploads/2026/05/Advisory-Clarification-on-the-Submission-of-Personal-Data-Breach-Notification-through-DBNMS_11-May-2026.pdf)). NPC inaction is not approval (Sec. 2(D)).
@@ -149,13 +150,21 @@ The act's penalties are criminal and apply to "persons". They are not limited to
 - If you use a system as a service, you register it and state that a service provider does the processing (Sec. 5(B)).
 - If registration is not mandatory and you do not register voluntarily, you "shall submit a sworn declaration" (Sec. 6, Annex 1).
 - Register a new system within 20 days of starting it (Sec. 7).
-- The application forms list corporations, partnerships, sole proprietorships, and individual professionals (Sec. 11). I found no form for a private person with no business registration.
+- The supporting papers listed in Sec. 11 cover government agencies, corporations, one person corporations, partnerships, sole proprietorships, and foreign entities.
+- An individual professional registers as their own data protection officer (Sec. 5(C) and Sec. 8). The circular defines an individual professional as a self-employed person who earns income from a profession (Sec. 2(I)).
+- I found no registration route for a private person with no business registration.
 - The NPC FAQ confirms the sworn declaration rule and the Sec. 5 criteria ([NPC FAQ](https://privacy.gov.ph/pips-and-pics/faqs/)).
 - PICs that do any automated processing must notify the NPC under the registration circular ([Circular 2023-04, Sec. 18(A)](https://privacy.gov.ph/wp-content/uploads/2023/11/NPC-Circular-No.-2023-04_Guidelines-on-Consent_07Nov2023.pdf)).
 
-**Open question:** Suro evaluates what each learner understands and stores it as mastery. That looks like evaluating "performance" under Sec. 2(L). If it is profiling, registration is mandatory at any size. If it is not, you file the sworn declaration instead. I found no NPC ruling on an adaptive tutor.
+The older IRR exemption for organizations under 250 persons has a further condition. It fails if the processing "is not occasional" ([IRR, Sec. 47](https://privacy.gov.ph/implementing-rules-regulations-data-privacy-act-2012/)). A continuous web service is not occasional.
 
-The older IRR exemption for organizations under 250 persons has the same shape. It fails if the processing "is not occasional" ([IRR, Sec. 47](https://privacy.gov.ph/implementing-rules-regulations-data-privacy-act-2012/)). A continuous web service is not occasional.
+**Open questions about registration.** Three triggers do not depend on size:
+
+1. **Profiling.** Suro evaluates what each learner understands and stores it as mastery. That looks like evaluating "performance" under Sec. 2(L) of Circular 2022-04. If it is profiling, registration is mandatory.
+2. **Likely risk.** Sec. 5 also requires registration when processing "will likely pose a risk" to rights and freedoms. The circular does not define the threshold in the parts I read.
+3. **Not occasional.** IRR Sec. 47 uses this test, but Circular 2022-04 Sec. 5 does not. Which text governs a conflict is Not verified.
+
+If none of the three applies, you file the sworn declaration instead. I found no NPC ruling on an adaptive tutor.
 
 ### AI systems: the NPC's own guidance
 
@@ -174,7 +183,17 @@ The older IRR exemption for organizations under 250 persons has the same shape. 
 
 - In the Philippines, majority starts at 18 ([Family Code, Art. 234, as amended by RA 6809](https://lawphil.net/statutes/repacts/ra1989/ra_6809_1989.html), unofficial copy).
 - I found no Philippine law that prescribes an age-check method for a general learning app. This is not an exhaustive search. Mark it "Not verified".
-- The NPC has an advisory on child-oriented transparency ([NPC Advisory 2024-03](https://privacy.gov.ph/wp-content/uploads/2024/12/Advisory-2024.12.17-Guidelines-on-Child-Oriented-Transparency-w-SGD.pdf)). I did not read it. Not verified.
+[NPC Advisory 2024-03](https://privacy.gov.ph/wp-content/uploads/2024/12/Advisory-2024.12.17-Guidelines-on-Child-Oriented-Transparency-w-SGD.pdf) (17 December 2024) covers children's data:
+
+- It treats a person below 18 as a child (recitals).
+- It applies to products "specifically intended for children or likely to be accessed by children" (Sec. 1).
+- Before launch, such a product needs a child privacy impact assessment (Sec. 2(A)).
+- You "may" use age assurance. Relying "solely on users' self-declaration may be inadequate for high-risk processing activities" (Sec. 2(B)(1)).
+- Data you collect for age assurance must follow the general privacy principles and have a lawful basis (Sec. 2(B)(1)).
+- You choose the age-assurance method, "if any", by a risk-based approach (Sec. 5).
+- If a service contemplates children as data subjects, even when it is also for adults, you must give child-friendly notices (Sec. 3(B)).
+
+So the gate matters in the Philippines too. It is the main evidence that Suro is not "likely to be accessed by children".
 
 ### Why the gate matters in other countries
 
@@ -217,9 +236,10 @@ No text above prescribes a gate design. Taken together, they point to these prop
 2. Ask for age neutrally, so the question does not hint at the answer that passes (FTC COPPA FAQ).
 3. Block sign-up below 18, because the Google terms and the ICO guidance focus on preventing access.
 4. Keep only what the gate needs. A stored birth date is information about age, which the Philippine act lists as sensitive ([Sec. 3(l)(1)](https://privacy.gov.ph/data-privacy-act/); [Sec. 11(d)](https://privacy.gov.ph/data-privacy-act/) requires data to be "not excessive").
-5. Stop and delete if you learn a learner is a minor (FTC COPPA FAQ; GDPR Art. 8).
-6. Keep a record of how the gate works, so you can show the reasoning the ICO asks for.
-7. Avoid child-oriented design, which the FTC uses as evidence of a child audience ([16 CFR 312.2](https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-312)).
+5. Decide what happens when you learn that a learner is under 18. No text I read sets this rule for an adult-only service. For a learner under 13, COPPA notice and parental consent duties apply (FTC COPPA FAQ).
+6. Weigh whether self-declaration is enough for Suro's risk level (NPC Advisory 2024-03, Sec. 2(B)(1)).
+7. Keep a record of how the gate works and why, as the ICO asks.
+8. Avoid child-oriented design, which the FTC uses as evidence of a child audience ([16 CFR 312.2](https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-312)).
 
 ## 3. Copyright in a material
 
@@ -252,14 +272,14 @@ A limited shield exists for service providers:
 - "Service provider" includes a provider of the technical means to store electronic files and make them accessible ([RA 8792, Sec. 5(j)](https://lawphil.net/statutes/repacts/ra2000/ra_8792_2000.html)).
 - Suro does more than store a material. It sends the material to an AI model and produces explanations from it. Whether Sec. 30 still applies is Not verified.
 
-Reform status: IPOPHL and Congress are working on IP Code amendments, including for AI. I found no amendment enacted in 2025 or 2026. Not verified.
+Reform status: news reports describe pending bills to amend the IP Code. I did not check whether any amendment after RA 10372 has passed. Not verified.
 
 ### United States: DMCA safe harbor
 
 - A service provider that meets set conditions is not liable for money damages for stored infringing material. The statute covers "storage at the direction of a user" ([17 U.S.C. 512(c)(1)](https://www.law.cornell.edu/uscode/text/17/512), unofficial copy).
 - The conditions: no actual knowledge, no financial benefit directly from infringement it can control, and fast removal after a valid notice (same subsection).
-- You must designate an agent with the US Copyright Office ([17 U.S.C. 512(c)(2)](https://www.law.cornell.edu/uscode/text/17/512); [DMCA Designated Agent Directory](https://www.copyright.gov/dmca-directory/)).
-- The fee is USD 6 ([37 CFR 201.3](https://www.ecfr.gov/current/title-37/chapter-II/subchapter-A/part-201/section-201.3)).
+- You designate an agent with the US Copyright Office to receive takedown notices ([DMCA Designated Agent Directory](https://www.copyright.gov/dmca-directory/)).
+- The fee for a "Designation of agent under 17 U.S.C. 512(c)(2)" is USD 6 ([37 CFR 201.3](https://www.ecfr.gov/current/title-37/chapter-II/subchapter-A/part-201/section-201.3)).
 - A designation expires after three years unless you renew it ([37 CFR 201.38(c)(4)](https://www.ecfr.gov/current/title-37/chapter-II/subchapter-A/part-201/section-201.38)).
 - You must adopt and reasonably implement a policy to end the accounts of repeat infringers ([17 U.S.C. 512(i)(1)(A)](https://www.law.cornell.edu/uscode/text/17/512)).
 - The safe harbor has no size threshold.
@@ -296,15 +316,17 @@ The [Data Processing Addendum](https://www.anthropic.com/legal/data-processing-a
 - You are the controller and Anthropic is the processor (Sec. B.1).
 - Anthropic processes only on your written instructions (Sec. B.2).
 - Anthropic gives notice of a new subprocessor, and you have 15 days to object (Sec. C.3).
-- Anthropic notifies you of a security breach within 48 hours (Sec. G.1). This leaves you time for the NPC's 72-hour window.
-- Anthropic returns or deletes your data within 30 days after the agreement ends (Sec. H.1).
+- Anthropic notifies you of a security breach within 48 hours (Sec. G.1). The NPC's 72-hour clock can start when the processor knows, not only when you know ([IRR, Sec. 38(a)](https://privacy.gov.ph/implementing-rules-regulations-data-privacy-act-2012/)).
+- Within 30 days after the agreement ends, Anthropic deletes all copies of your data. Exceptions cover legal duties, disputes, and harmful use (Sec. H.1.b).
+- "Applicable Data Protection Laws" means all applicable privacy laws (Sec. A.1). The text does not name the Philippines.
 - EU Standard Contractual Clauses and a UK Addendum cover transfers (Schedule 3).
+- I did not compare the addendum item by item with IRR Sec. 44. Whether it meets every Philippine requirement is Not verified.
 
 Retention for API data ([Anthropic privacy center](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data), dated 1 July 2026):
 
-- Inputs and outputs are deleted "within 30 days of receipt or generation".
+- Anthropic deletes inputs and outputs "within 30 days of receipt or generation".
 - Exceptions: services with longer retention under your control, such as the Files API; a zero data retention agreement; Usage Policy enforcement; and legal duties.
-- If a request is flagged for a Usage Policy violation, inputs and outputs are kept up to 2 years. Classification scores are kept up to 7 years.
+- If Anthropic flags a request for a Usage Policy violation, it keeps inputs and outputs up to 2 years. It keeps classification scores up to 7 years.
 
 ### Claude Max and other consumer plans
 
@@ -312,9 +334,9 @@ The map notes that AI usage may come from Claude Max credits. Consumer plans fal
 
 - You "may not make your Account available to anyone else" (Sec. 2).
 - You may not access the services "through automated or non-human means" unless you use an API key or Anthropic "explicitly permit[s] it" (Sec. 3, item 7).
-- Anthropic may use materials for training "unless you opt out". Even after an opt-out, feedback and flagged content can be used (paragraph "Our use of Materials").
-- If training is allowed, data may be kept in de-identified form for up to 5 years ([consumer retention article](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data)).
-- The consumer terms contain no data processing addendum. You would have no processor contract to show under RA 10173 Sec. 21(a) or IRR Sec. 44.
+- Anthropic may use your inputs and outputs for training "unless you opt out". Even after an opt-out, Anthropic can use feedback and flagged content (paragraph "Our use of Materials").
+- If you allow training, Anthropic may keep data in de-identified form for up to 5 years ([consumer retention article](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data)).
+- I found no data processing addendum in the consumer terms. Without one, you may have no processor contract to show under RA 10173 Sec. 21(a) or IRR Sec. 44.
 
 ### Google Gemini API
 
@@ -327,8 +349,8 @@ From the [Gemini API Additional Terms](https://ai.google.dev/gemini-api/terms), 
 
 ### OpenAI API
 
-- Since 1 March 2023, API data is not used to train models unless you opt in ([OpenAI data controls](https://developers.openai.com/api/docs/guides/your-data)).
-- Abuse monitoring logs are kept for up to 30 days by default (same page).
+- Since 1 March 2023, OpenAI does not use API data to train models unless you opt in ([OpenAI data controls](https://developers.openai.com/api/docs/guides/your-data)).
+- OpenAI keeps abuse monitoring logs for up to 30 days by default (same page).
 - OpenAI uses customer content only to provide the services, unless you agree otherwise ([Services Agreement, Sec. 4.2](https://openai.com/policies/services-agreement/)).
 - You warrant that you have all rights to provide your input ([Sec. 4.3](https://openai.com/policies/services-agreement/)).
 - A data processing addendum applies when you process personal data ([Sec. 5.3](https://openai.com/policies/services-agreement/)).
@@ -349,9 +371,9 @@ If the GDPR applies:
 - Report a breach to the supervisory authority "not later than 72 hours" after you become aware of it ([Art. 33(1)](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679)).
 - A controller under Art. 3(2) must name an EU representative ([Art. 27(1)](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679)). The exemption needs processing that is occasional, without large-scale special data, and unlikely to cause risk ([Art. 27(2)(a)](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679)).
 - Records of processing are exempt below 250 persons. The exemption fails if processing is "not occasional" ([Art. 30(5)](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679)).
-- Education is not a special category under GDPR Art. 9. This differs from the Philippine list of sensitive information.
+- The GDPR's special categories do not include education or age ([Art. 9(1)](https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679)). This differs from the Philippine list of sensitive information.
 
-The EU "Digital Omnibus" proposes GDPR amendments. I found no final adoption as of this date. Not verified.
+News reports describe proposed GDPR amendments, the "Digital Omnibus". I did not check their status on an official EU page. Not verified.
 
 ### United Kingdom (UK GDPR)
 
@@ -372,15 +394,15 @@ The EU "Digital Omnibus" proposes GDPR amendments. I found no final adoption as 
 | Privacy notice, lawful basis, rights (PH) | None | Yes |
 | Accountable person or data protection officer (PH, Sec. 21(b)) | None | Yes |
 | Security measures (PH, Sec. 20) | Scaled by size and cost (Sec. 20(c)) | Yes, at a lower level |
-| Breach notice within 72 hours (PH) | None. 100 individuals is one factor (16-03, Sec. 13(B)) | Yes |
+| Breach notice within 72 hours (PH) | None. When unsure, you consider whether 100 or more individuals are involved (16-03, Sec. 13(B)) | Yes, when the Sec. 11 conditions hold |
 | Annual incident summary (PH, 16-03, Sec. 22) | None | Yes |
-| Registration (PH, 2022-04, Sec. 5) | 250 employees, 1,000 sensitive records, or risk | Only if Suro's mastery tracking is profiling |
+| Registration (PH, 2022-04, Sec. 5) | 250 employees or 1,000 sensitive records. Profiling and likely risk apply at any size | Open: depends on the profiling and risk questions |
 | Sworn declaration (PH, 2022-04, Sec. 6) | Applies when you do not register | Yes, if you do not register |
 | Maximum criminal penalty (PH, Sec. 35) | 100 or more persons affected | Raises the stakes as Suro grows |
 | GDPR applies at all (Art. 3(2)) | Targeting the EU, not size | Depends on your marketing |
 | GDPR representative (Art. 27) | Occasional, low-risk processing is exempt | Probably required if GDPR applies |
 | GDPR records (Art. 30(5)) | Under 250 persons, unless not occasional | Probably required if GDPR applies |
-| COPPA | Audience and actual knowledge, not size | Avoided by a working adults-only gate |
+| COPPA | Audience and actual knowledge, not size | A neutral gate lowers the chance of actual knowledge. It does not prevent a "directed to children" finding |
 | DMCA safe harbor | None. Agent designation costs USD 6 | Optional shield |
 | AI provider terms | None | Yes |
 
@@ -393,12 +415,12 @@ Duties that appear to apply even to a small test with Philippine learners:
 1. Publish a privacy notice that names the AI provider as a recipient and states retention periods.
 2. Choose and record a lawful basis for each purpose. If you use consent, make it granular, express, recorded, and easy to withdraw.
 3. Name yourself as the accountable person, with a contact address.
-4. Register with the NPC, or file the sworn declaration. The choice depends on the profiling question.
+4. Register with the NPC, or file the sworn declaration. The choice depends on the open profiling and risk questions.
 5. Keep a written incident policy, an incident log, and a breach notice plan that meets 72 hours.
 6. Build one deletion path that covers the account, materials, mastery records, and the gate record.
 7. Set a retention period for each kind of data. Do not keep data "in perpetuity".
-8. Use an AI access path with a processor contract and no training on inputs. The Anthropic API terms provide this. The consumer Max terms do not.
-9. Run an adults-only gate that blocks under-18 sign-ups and stores as little as possible about age.
+8. Use an AI access path with a processor contract and no training on inputs. The Anthropic API terms include both. I found neither in the consumer Max terms.
+9. Run an adults-only gate that blocks under-18 sign-ups and stores as little as possible about age. Record why its method fits Suro's risk.
 10. Ask learners to confirm they may use each material. Offer a way for rights holders to request removal.
 
 ## Not verified
@@ -406,12 +428,16 @@ Duties that appear to apply even to a small test with Philippine learners:
 - Whether stored mastery counts as "profiling" under NPC Circular 2022-04, Sec. 2(L).
 - Whether mastery records count as information about "education" under RA 10173, Sec. 3(l)(2).
 - Whether a yes-or-no age answer counts as information about "age" under Sec. 3(l)(1).
+- Whether Suro's processing "will likely pose a risk" under Circular 2022-04, Sec. 5.
+- Whether the IRR Sec. 47 "not occasional" test still applies next to Circular 2022-04.
 - How a private person with no business registration registers with the NPC.
+- Whether the Anthropic data processing addendum meets every item in IRR Sec. 44.
 - Whether IP Code Sec. 187.1 covers a copy that a service makes for a learner.
 - Whether Suro fits RA 8792 Sec. 30 or 17 U.S.C. 512(c), given that it processes materials with AI.
 - Whether a free side project is "operated for commercial purposes" under COPPA.
 - The status of Philippine IP Code reform and the EU Digital Omnibus.
-- The contents of NPC Advisory 2024-01 (model clauses) and NPC Advisory 2024-03 (children).
+- The contents of NPC Advisory 2024-01 (model clauses).
+- What an adult-only service must do when it learns that a learner is under 18.
 - The UK Data (Use and Access) Act 2025 changes beyond Art. 27.
 - US state privacy laws.
 - Whether a Philippine law prescribes an age-check method. My search was not exhaustive.
@@ -425,6 +451,7 @@ Philippines, privacy:
 - NPC Circular 16-03, Personal Data Breach Management: <https://privacy.gov.ph/wp-content/uploads/2022/01/sgd-npc-circular-16-03-personal-data-breach-management.pdf>
 - NPC Circular 2022-04, Registration: <https://privacy.gov.ph/wp-content/uploads/2023/05/Circular-2022-04-1.pdf>
 - NPC Circular 2023-04, Guidelines on Consent: <https://privacy.gov.ph/wp-content/uploads/2023/11/NPC-Circular-No.-2023-04_Guidelines-on-Consent_07Nov2023.pdf>
+- NPC Advisory 2024-03, child-oriented transparency: <https://privacy.gov.ph/wp-content/uploads/2024/12/Advisory-2024.12.17-Guidelines-on-Child-Oriented-Transparency-w-SGD.pdf>
 - NPC Advisory 2024-04, AI systems: <https://privacy.gov.ph/wp-content/uploads/2025/02/Advisory-2024.12.19-Guidelines-on-Artificial-Intelligence-w-SGD.pdf>
 - NPC Advisory 2026-02, breach notification: <https://privacy.gov.ph/wp-content/uploads/2026/05/Advisory-Clarification-on-the-Submission-of-Personal-Data-Breach-Notification-through-DBNMS_11-May-2026.pdf>
 - NPC FAQ on registration: <https://privacy.gov.ph/pips-and-pics/faqs/>
